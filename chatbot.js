@@ -59,7 +59,7 @@
     </div>
     <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
       <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
-        <b>Bot:</b> Hello! How can I help you today?
+        <b>Bot:</b> Hello!
       </div>
     </div>
     <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
@@ -136,3 +136,4 @@
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
