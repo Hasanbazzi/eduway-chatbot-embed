@@ -1,86 +1,138 @@
 (function() {
-  // Find the <script> that loaded this file
   const scriptTag = document.currentScript;
-
-  // Read attributes
   const universityName = scriptTag.getAttribute("data-university-name") || "University Chatbot";
-  const universityIcon = scriptTag.getAttribute("data-university-icon") || "💬";
+  const universityIcon = scriptTag.getAttribute("data-university-icon") || "🤖";
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
-  // Create floating button
+  // Floating circular button
   const button = document.createElement("div");
-  button.innerHTML = `<img src="${universityIcon}" style="width:40px;height:40px;border-radius:50%;" alt="chat"/>`;
-  button.style.position = "fixed";
-  button.style.bottom = "20px";
-  button.style.right = "20px";
-  button.style.cursor = "pointer";
-  button.style.zIndex = 9999;
+  button.innerHTML = `<span style="font-size:28px;">${universityIcon}</span>`;
+  Object.assign(button.style, {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    background: "#4a6cf7",
+    color: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    zIndex: 9999
+  });
+  button.onmouseenter = () => {
+    button.style.transform = "scale(1.1)";
+    button.style.boxShadow = "0 6px 18px rgba(0,0,0,0.35)";
+  };
+  button.onmouseleave = () => {
+    button.style.transform = "scale(1)";
+    button.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+  };
   document.body.appendChild(button);
 
-  // Create chat window (hidden at first)
+  // Chat window
   const chatWindow = document.createElement("div");
-  chatWindow.style.position = "fixed";
-  chatWindow.style.bottom = "80px";
-  chatWindow.style.right = "20px";
-  chatWindow.style.width = "300px";
-  chatWindow.style.height = "400px";
-  chatWindow.style.background = "#fff";
-  chatWindow.style.border = "1px solid #ccc";
-  chatWindow.style.borderRadius = "10px";
-  chatWindow.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
-  chatWindow.style.display = "none";
-  chatWindow.style.flexDirection = "column";
-  chatWindow.style.overflow = "hidden";
-  chatWindow.style.fontFamily = "Arial, sans-serif";
-  chatWindow.style.zIndex = 9999;
+  Object.assign(chatWindow.style, {
+    position: "fixed",
+    bottom: "90px",
+    right: "20px",
+    width: "360px",
+    height: "500px",
+    background: "#ffffff",
+    borderRadius: "16px",
+    boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
+    display: "none",
+    flexDirection: "column",
+    overflow: "hidden",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    zIndex: 9999
+  });
 
   chatWindow.innerHTML = `
-    <div style="background:#4a6cf7;color:white;padding:10px;font-weight:bold;">
-      ${universityName}
-      <span style="float:right;cursor:pointer;" id="closeChat">✖</span>
+    <div style="background:#4a6cf7;color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+      <span>${universityName}</span>
+      <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
     </div>
-    <div id="chatMessages" style="flex:1;padding:10px;overflow-y:auto;font-size:14px;">
-      <div><b>Bot:</b> Hello! How can I help you today?</div>
+    <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
+      <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
+        <b>Bot:</b> Hello! How can I help you today?
+      </div>
     </div>
-    <div style="padding:8px;border-top:1px solid #ccc;">
-      <input id="chatInput" type="text" style="width:80%;padding:5px;" placeholder="Type a message..."/>
-      <button id="sendChat" style="width:18%;padding:5px;">Send</button>
+    <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
+      <input id="chatInput" type="text" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none;font-size:14px;transition: border 0.2s;"/>
+      <button id="sendChat" style="width:48px;height:48px;border-radius:50%;background:#4a6cf7;color:white;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
+        &#10148;
+      </button>
     </div>
   `;
-
   document.body.appendChild(chatWindow);
 
-  // Toggle chat window
+  // Toggle chat
   button.onclick = () => {
-    chatWindow.style.display = (chatWindow.style.display === "none") ? "flex" : "none";
+    chatWindow.style.display = chatWindow.style.display === "none" ? "flex" : "none";
   };
+  chatWindow.querySelector("#closeChat").onclick = () => chatWindow.style.display = "none";
 
-  // Close button
-  chatWindow.querySelector("#closeChat").onclick = () => {
-    chatWindow.style.display = "none";
-  };
-
-  // Handle sending messages
   const chatMessages = chatWindow.querySelector("#chatMessages");
   const chatInput = chatWindow.querySelector("#chatInput");
   const sendChat = chatWindow.querySelector("#sendChat");
 
+  async function sendMessage(text) {
+    if (!text) return;
+
+    // User message
+    const userMsg = document.createElement("div");
+    userMsg.style.alignSelf = "flex-end";
+    userMsg.style.background = "#DCF8C6";
+    userMsg.style.padding = "10px 14px";
+    userMsg.style.borderRadius = "12px";
+    userMsg.style.maxWidth = "80%";
+    userMsg.style.wordWrap = "break-word";
+    userMsg.style.transition = "all 0.3s";
+    userMsg.innerHTML = `<b>You:</b> ${text}`;
+    chatMessages.appendChild(userMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Typing indicator
+    const typing = document.createElement("div");
+    typing.style.alignSelf = "flex-start";
+    typing.style.background = "#f1f1f1";
+    typing.style.padding = "10px 14px";
+    typing.style.borderRadius = "12px";
+    typing.style.maxWidth = "80%";
+    typing.style.wordWrap = "break-word";
+    typing.style.fontStyle = "italic";
+    typing.style.opacity = "0.8";
+    typing.innerHTML = `<b>Bot:</b> typing...`;
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    try {
+      const response = await fetch("https://your-backend.com/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ assistantId, message: text })
+      });
+      const data = await response.json();
+      typing.innerHTML = `<b>Bot:</b> ${data.reply}`;
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    } catch (err) {
+      typing.innerHTML = `<b>Bot:</b> Error sending message.`;
+    }
+  }
+
   sendChat.onclick = () => {
     const text = chatInput.value.trim();
     if (!text) return;
-
-    // Display user message
-    const userMsg = document.createElement("div");
-    userMsg.innerHTML = `<b>You:</b> ${text}`;
-    chatMessages.appendChild(userMsg);
-
     chatInput.value = "";
-
-    // For now just echo back
-    const botMsg = document.createElement("div");
-    botMsg.innerHTML = `<b>Bot:</b> You said "${text}" (assistantId=${assistantId})`;
-    chatMessages.appendChild(botMsg);
-
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+    sendMessage(text);
   };
+
+  chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendChat.onclick();
+  });
 })();
