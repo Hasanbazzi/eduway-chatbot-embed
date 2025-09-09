@@ -117,8 +117,7 @@ async function sendMessage(text) {
   }
 }
 
-
-endChat.onclick = () => {
+sendChat.onclick = () => {
   const text = chatInput.value.trim();
   if (!text) return;
   chatInput.value = "";
@@ -129,6 +128,7 @@ chatInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") sendChat.onclick();
 });
 })();
+
 
 
 
