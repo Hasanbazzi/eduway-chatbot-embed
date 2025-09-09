@@ -4,9 +4,10 @@
   const universityIcon = scriptTag.getAttribute("data-university-icon") || "🤖";
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
-  // Floating circular button
-  const button = document.createElement("div");
-  button.innerHTML = `<span style="font-size:28px;">${universityIcon}</span>`;
+const button = document.createElement("div");
+
+const botIcon = universityIcon || "🤖";
+button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   Object.assign(button.style, {
     position: "fixed",
     bottom: "20px",
@@ -136,4 +137,5 @@
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
