@@ -73,69 +73,62 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   document.body.appendChild(chatWindow);
 
   // Toggle chat
-  button.onclick = () => {
-    chatWindow.style.display = chatWindow.style.display === "none" ? "flex" : "none";
-  };
-  chatWindow.querySelector("#closeChat").onclick = () => chatWindow.style.display = "none";
+button.onclick = () => chatWindow.style.display = chatWindow.style.display === "none" ? "flex" : "none";
+chatWindow.querySelector("#closeChat").onclick = () => chatWindow.style.display = "none";
+
 
   const chatMessages = chatWindow.querySelector("#chatMessages");
   const chatInput = chatWindow.querySelector("#chatInput");
   const sendChat = chatWindow.querySelector("#sendChat");
 
-  async function sendMessage(text) {
-    if (!text) return;
+async function sendMessage(text) {
+  if (!text) return;
 
-    // User message
-    const userMsg = document.createElement("div");
-    userMsg.style.alignSelf = "flex-end";
-    userMsg.style.background = "#DCF8C6";
-    userMsg.style.padding = "10px 14px";
-    userMsg.style.borderRadius = "12px";
-    userMsg.style.maxWidth = "80%";
-    userMsg.style.wordWrap = "break-word";
-    userMsg.style.transition = "all 0.3s";
-    userMsg.innerHTML = `<b>You:</b> ${text}`;
-    chatMessages.appendChild(userMsg);
+  const userMsg = document.createElement("div");
+  userMsg.style.alignSelf = "flex-end";
+  userMsg.style.background = "#DCF8C6";
+  userMsg.style.padding = "10px 14px";
+  userMsg.style.borderRadius = "10px";
+  userMsg.innerHTML = `<b>You:</b> ${text}`;
+  chatMessages.appendChild(userMsg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Typing indicator
+  const typing = document.createElement("div");
+  typing.style.alignSelf = "flex-start";
+  typing.style.background = "#f1f1f1";
+  typing.style.padding = "10px 14px";
+  typing.style.borderRadius = "10px";
+  typing.innerHTML = `<b>Bot:</b> typing...`;
+  chatMessages.appendChild(typing);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const response = await fetch("http://localhost:8080/eduway_backend/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ assistantId, message: text })
+    });
+    const data = await response.json();
+    typing.innerHTML = `<b>Bot:</b> ${data.reply}`;
     chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    // Typing indicator
-    const typing = document.createElement("div");
-    typing.style.alignSelf = "flex-start";
-    typing.style.background = "#f1f1f1";
-    typing.style.padding = "10px 14px";
-    typing.style.borderRadius = "12px";
-    typing.style.maxWidth = "80%";
-    typing.style.wordWrap = "break-word";
-    typing.style.fontStyle = "italic";
-    typing.style.opacity = "0.8";
-    typing.innerHTML = `<b>Bot:</b> typing...`;
-    chatMessages.appendChild(typing);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    try {
-      const response = await fetch("https://your-backend.com/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ assistantId, message: text })
-      });
-      const data = await response.json();
-      typing.innerHTML = `<b>Bot:</b> ${data.reply}`;
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    } catch (err) {
-      typing.innerHTML = `<b>Bot:</b> Error sending message.`;
-    }
+  } catch (err) {
+    typing.innerHTML = `<b>Bot:</b> Error sending message.`;
   }
+}
 
-  sendChat.onclick = () => {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    chatInput.value = "";
-    sendMessage(text);
-  };
 
-  chatInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") sendChat.onclick();
-  });
+endChat.onclick = () => {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  chatInput.value = "";
+  sendMessage(text);
+};
+
+chatInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendChat.onclick();
+});
 })();
+
 
 
