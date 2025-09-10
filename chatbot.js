@@ -112,7 +112,7 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const res = await fetch("http://localhost:3000/chat", {
+const res = await fetch("https://eduway-chatbot-backend-1.onrender.com/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -154,3 +154,4 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
