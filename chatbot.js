@@ -5,7 +5,7 @@
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
 const button = document.createElement("div");
-
+// Default bot icon if none provided
 const botIcon = universityIcon || "🤖";
 button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   Object.assign(button.style, {
@@ -60,7 +60,7 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
     </div>
     <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
       <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
-        <b>Bot:</b> Hello!
+        <b>Bot:</b> Hello! How can I help you today?
       </div>
     </div>
     <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
@@ -73,22 +73,26 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   document.body.appendChild(chatWindow);
 
   // Toggle chat
-button.onclick = () => chatWindow.style.display = chatWindow.style.display === "none" ? "flex" : "none";
-chatWindow.querySelector("#closeChat").onclick = () => chatWindow.style.display = "none";
-
+  button.onclick = () => {
+    chatWindow.style.display = chatWindow.style.display === "none" ? "flex" : "none";
+  };
+  chatWindow.querySelector("#closeChat").onclick = () => chatWindow.style.display = "none";
 
   const chatMessages = chatWindow.querySelector("#chatMessages");
   const chatInput = chatWindow.querySelector("#chatInput");
   const sendChat = chatWindow.querySelector("#sendChat");
 
-async function sendMessage(text) {
+ async function sendMessage(text) {
   if (!text) return;
 
+  // Display user message
   const userMsg = document.createElement("div");
   userMsg.style.alignSelf = "flex-end";
   userMsg.style.background = "#DCF8C6";
   userMsg.style.padding = "10px 14px";
-  userMsg.style.borderRadius = "10px";
+  userMsg.style.borderRadius = "12px";
+  userMsg.style.maxWidth = "80%";
+  userMsg.style.wordWrap = "break-word";
   userMsg.innerHTML = `<b>You:</b> ${text}`;
   chatMessages.appendChild(userMsg);
   chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -98,37 +102,55 @@ async function sendMessage(text) {
   typing.style.alignSelf = "flex-start";
   typing.style.background = "#f1f1f1";
   typing.style.padding = "10px 14px";
-  typing.style.borderRadius = "10px";
+  typing.style.borderRadius = "12px";
+  typing.style.maxWidth = "80%";
+  typing.style.wordWrap = "break-word";
+  typing.style.fontStyle = "italic";
+  typing.style.opacity = "0.8";
   typing.innerHTML = `<b>Bot:</b> typing...`;
   chatMessages.appendChild(typing);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 
   try {
-    const response = await fetch("http://localhost:8080/eduway_backend/chat", {
+    const res = await fetch("http://localhost:3000/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ assistantId, message: text })
+      body: JSON.stringify({
+        action: "sendMessage",
+        assistantId: "asst_VpJbKOMBkc4a5SO38BVzqCOE", // replace with your actual assistant ID
+        message: text
+      })
     });
-    const data = await response.json();
-    typing.innerHTML = `<b>Bot:</b> ${data.reply}`;
+
+    const data = await res.json();
+    typing.remove(); // remove typing indicator
+
+    const botMsg = document.createElement("div");
+    botMsg.style.alignSelf = "flex-start";
+    botMsg.style.background = "#f1f1f1";
+    botMsg.style.padding = "10px 14px";
+    botMsg.style.borderRadius = "12px";
+    botMsg.style.maxWidth = "80%";
+    botMsg.style.wordWrap = "break-word";
+    botMsg.innerHTML = `<b>Bot:</b> ${data.reply}`;
+    chatMessages.appendChild(botMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
   } catch (err) {
-    typing.innerHTML = `<b>Bot:</b> Error sending message.`;
+    typing.remove();
+    console.error(err);
   }
 }
 
-sendChat.onclick = () => {
-  const text = chatInput.value.trim();
-  if (!text) return;
-  chatInput.value = "";
-  sendMessage(text);
-};
 
-chatInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") sendChat.onclick();
-});
+  sendChat.onclick = () => {
+    const text = chatInput.value.trim();
+    if (!text) return;
+    chatInput.value = "";
+    sendMessage(text);
+  };
+
+  chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") sendChat.onclick();
+  });
 })();
-
-
-
-
