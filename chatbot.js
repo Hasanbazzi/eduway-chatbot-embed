@@ -4,10 +4,9 @@
   const universityIcon = scriptTag.getAttribute("data-university-icon") || "🤖";
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
-const button = document.createElement("div");
-// Default bot icon if none provided
-const botIcon = universityIcon || "🤖";
-button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
+  const button = document.createElement("div");
+  const botIcon = universityIcon || "🤖";
+  button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   Object.assign(button.style, {
     position: "fixed",
     bottom: "20px",
@@ -35,7 +34,6 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   };
   document.body.appendChild(button);
 
-  // Chat window
   const chatWindow = document.createElement("div");
   Object.assign(chatWindow.style, {
     position: "fixed",
@@ -59,7 +57,7 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
       <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
     </div>
     <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
-      <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
+      <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px 12px 12px 0px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
         <b>Bot:</b> Hello! How can I help you today?
       </div>
     </div>
@@ -72,7 +70,6 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   `;
   document.body.appendChild(chatWindow);
 
-  // Toggle chat
   button.onclick = () => {
     chatWindow.style.display = chatWindow.style.display === "none" ? "flex" : "none";
   };
@@ -82,66 +79,65 @@ button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   const chatInput = chatWindow.querySelector("#chatInput");
   const sendChat = chatWindow.querySelector("#sendChat");
 
- async function sendMessage(text) {
-  if (!text) return;
+  async function sendMessage(text) {
+    if (!text) return;
 
-  // Display user message
-  const userMsg = document.createElement("div");
-  userMsg.style.alignSelf = "flex-end";
-  userMsg.style.background = "#DCF8C6";
-  userMsg.style.padding = "10px 14px";
-  userMsg.style.borderRadius = "12px";
-  userMsg.style.maxWidth = "80%";
-  userMsg.style.wordWrap = "break-word";
-  userMsg.innerHTML = `<b>You:</b> ${text}`;
-  chatMessages.appendChild(userMsg);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  // Typing indicator
-  const typing = document.createElement("div");
-  typing.style.alignSelf = "flex-start";
-  typing.style.background = "#f1f1f1";
-  typing.style.padding = "10px 14px";
-  typing.style.borderRadius = "12px";
-  typing.style.maxWidth = "80%";
-  typing.style.wordWrap = "break-word";
-  typing.style.fontStyle = "italic";
-  typing.style.opacity = "0.8";
-  typing.innerHTML = `<b>Bot:</b> typing...`;
-  chatMessages.appendChild(typing);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-
-  try {
-const res = await fetch("https://eduway-chatbot-backend-1.onrender.com/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "sendMessage",
-        assistantId: "asst_VpJbKOMBkc4a5SO38BVzqCOE", // replace with your actual assistant ID
-        message: text
-      })
-    });
-
-    const data = await res.json();
-    typing.remove(); // remove typing indicator
-
-    const botMsg = document.createElement("div");
-    botMsg.style.alignSelf = "flex-start";
-    botMsg.style.background = "#f1f1f1";
-    botMsg.style.padding = "10px 14px";
-    botMsg.style.borderRadius = "12px";
-    botMsg.style.maxWidth = "80%";
-    botMsg.style.wordWrap = "break-word";
-    botMsg.innerHTML = `<b>Bot:</b> ${data.reply}`;
-    chatMessages.appendChild(botMsg);
+    // User message
+    const userMsg = document.createElement("div");
+    userMsg.style.alignSelf = "flex-end";
+    userMsg.style.background = "#DCF8C6";
+    userMsg.style.padding = "10px 14px";
+    userMsg.style.borderRadius = "12px 12px 0px 12px"; // bottom-right flat
+    userMsg.style.maxWidth = "80%";
+    userMsg.style.wordWrap = "break-word";
+    userMsg.innerHTML = `<b>You:</b> ${text}`;
+    chatMessages.appendChild(userMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-  } catch (err) {
-    typing.remove();
-    console.error(err);
-  }
-}
+    // Typing indicator
+    const typing = document.createElement("div");
+    typing.style.alignSelf = "flex-start";
+    typing.style.background = "#f1f1f1";
+    typing.style.padding = "10px 14px";
+    typing.style.borderRadius = "12px 12px 12px 0px"; // bottom-left flat
+    typing.style.maxWidth = "80%";
+    typing.style.wordWrap = "break-word";
+    typing.style.fontStyle = "italic";
+    typing.style.opacity = "0.8";
+    typing.innerHTML = `<b>Bot:</b> typing...`;
+    chatMessages.appendChild(typing);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 
+    try {
+      const res = await fetch("https://eduway-chatbot-backend-1.onrender.com/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "sendMessage",
+          assistantId: "asst_VpJbKOMBkc4a5SO38BVzqCOE",
+          message: text
+        })
+      });
+
+      const data = await res.json();
+      typing.remove();
+
+      const botMsg = document.createElement("div");
+      botMsg.style.alignSelf = "flex-start";
+      botMsg.style.background = "#f1f1f1";
+      botMsg.style.padding = "10px 14px";
+      botMsg.style.borderRadius = "12px 12px 12px 0px"; // bottom-left flat
+      botMsg.style.maxWidth = "80%";
+      botMsg.style.wordWrap = "break-word";
+      botMsg.innerHTML = `<b>Bot:</b> ${data.reply}`;
+      chatMessages.appendChild(botMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    } catch (err) {
+      typing.remove();
+      console.error(err);
+    }
+  }
 
   sendChat.onclick = () => {
     const text = chatInput.value.trim();
@@ -154,4 +150,3 @@ const res = await fetch("https://eduway-chatbot-backend-1.onrender.com/chat", {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
-
