@@ -106,7 +106,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     userMsg.style.borderRadius = "12px 12px 0px 12px";
     userMsg.style.maxWidth = "80%";
     userMsg.style.wordWrap = "break-word";
-    userMsg.innerHTML = `<b>You:</b> ${text}`;
+    userMsg.innerHTML = `${text}`;
     chatMessages.appendChild(userMsg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -120,7 +120,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     typing.style.wordWrap = "break-word";
     typing.style.fontStyle = "italic";
     typing.style.opacity = "0.8";
-    typing.innerHTML = `<b>Bot:</b> typing...`;
+    typing.innerHTML = `typing...`;
     chatMessages.appendChild(typing);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -145,7 +145,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
       botMsg.style.borderRadius = "12px 12px 12px 0px";
       botMsg.style.maxWidth = "80%";
       botMsg.style.wordWrap = "break-word";
-      botMsg.innerHTML = `<b>Bot:</b> ${data.reply}`;
+      botMsg.innerHTML = `${data.reply}`;
       chatMessages.appendChild(botMsg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
@@ -166,6 +166,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
 
