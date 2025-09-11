@@ -65,25 +65,27 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     zIndex: 9999
   });
 
-  chatWindow.innerHTML = `
-    <div style="background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
-      <span>${universityName}</span>
-      <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
+ chatWindow.innerHTML = `
+  <div style="background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+    <span>${universityName}</span>
+    <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
+  </div>
+  <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
+    <div style="align-self:flex-start;background:#E9E4FE;padding:10px 14px;border-radius:12px 12px 12px 0px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
+      Hello! How can I help you today?
     </div>
-    <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
-      <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px 12px 12px 0px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">Hello! How can I help you today?
-      </div>
-    </div>
-    <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
-      <input id="chatInput" type="text" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none;font-size:14px;transition: border 0.2s;"/>
-      <button id="sendChat" style="width:48px;height:48px;border-radius:50%;
-        background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));
-        color:white;border:none;display:flex;justify-content:center;align-items:center;
-        cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
-        &#10148;
-      </button>
-    </div>
-  `;
+  </div>
+  <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
+    <input id="chatInput" type="text" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none;font-size:14px;transition: border 0.2s;"/>
+    <button id="sendChat" style="width:48px;height:48px;border-radius:50%;
+      background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));
+      color:white;border:none;display:flex;justify-content:center;align-items:center;
+      cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
+      &#10148;
+    </button>
+  </div>
+`;
+
   document.body.appendChild(chatWindow);
 
   button.onclick = () => {
@@ -166,6 +168,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
 
