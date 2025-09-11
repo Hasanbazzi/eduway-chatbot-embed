@@ -101,7 +101,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     // User message
     const userMsg = document.createElement("div");
     userMsg.style.alignSelf = "flex-end";
-    userMsg.style.background = "#DCF8C6";
+    userMsg.style.background = "#CBE3FF";
     userMsg.style.padding = "10px 14px";
     userMsg.style.borderRadius = "12px 12px 0px 12px";
     userMsg.style.maxWidth = "80%";
@@ -113,7 +113,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     // Typing indicator
     const typing = document.createElement("div");
     typing.style.alignSelf = "flex-start";
-    typing.style.background = "linear-gradient(to right, rgba(76,154,227,0.4), rgba(125,52,238,0.4))";
+    typing.style.background = "#E9E4FE"
     typing.style.padding = "10px 14px";
     typing.style.borderRadius = "12px 12px 12px 0px";
     typing.style.maxWidth = "80%";
@@ -140,7 +140,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
 
       const botMsg = document.createElement("div");
       botMsg.style.alignSelf = "flex-start";
-      botMsg.style.background = "linear-gradient(to right, rgba(76,154,227,0.4), rgba(125,52,238,0.4))";
+      botMsg.style.background = "#E9E4FE"; 
       botMsg.style.padding = "10px 14px";
       botMsg.style.borderRadius = "12px 12px 12px 0px";
       botMsg.style.maxWidth = "80%";
@@ -166,6 +166,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
 
