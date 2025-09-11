@@ -104,8 +104,8 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
 // User message
 const userMsg = document.createElement("div");
 userMsg.style.alignSelf = "flex-end";
-userMsg.style.background = "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))"; // same as button
-userMsg.style.color = "#fff";  // white text
+userMsg.style.background = "#CBE3FF"; // fully opaque
+userMsg.style.color = "#fff"; // white text
 userMsg.style.padding = "10px 14px";
 userMsg.style.borderRadius = "12px 12px 0px 12px";
 userMsg.style.maxWidth = "80%";
@@ -114,11 +114,11 @@ userMsg.innerHTML = `${text}`;
 chatMessages.appendChild(userMsg);
 chatMessages.scrollTop = chatMessages.scrollHeight;
 
-// Typing indicator
+// Typing indicator (bot)
 const typing = document.createElement("div");
 typing.style.alignSelf = "flex-start";
-typing.style.background = "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))"; // same as user/bot
-typing.style.color = "#fff";  // white text
+typing.style.background = "#E9E4FE"; // fully opaque
+typing.style.color = "#fff"; // white text
 typing.style.padding = "10px 14px";
 typing.style.borderRadius = "12px 12px 12px 0px";
 typing.style.maxWidth = "80%";
@@ -143,19 +143,19 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
 
       const data = await res.json();
       typing.remove();
-// Bot message
-const botMsg = document.createElement("div");
-botMsg.style.alignSelf = "flex-start";
-botMsg.style.background = "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))"; // same as user
-botMsg.style.color = "#fff";  // white text
-botMsg.style.padding = "10px 14px";
-botMsg.style.borderRadius = "12px 12px 12px 0px";
-botMsg.style.maxWidth = "80%";
-botMsg.style.wordWrap = "break-word";
-botMsg.innerHTML = `${data.reply}`;
-chatMessages.appendChild(botMsg);
-chatMessages.scrollTop = chatMessages.scrollHeight;
 
+      // Bot message
+      const botMsg = document.createElement("div");
+      botMsg.style.alignSelf = "flex-start";
+      botMsg.style.background = "#E9E4FE"; // fully opaque
+      botMsg.style.color = "#fff"; // white text
+      botMsg.style.padding = "10px 14px";
+      botMsg.style.borderRadius = "12px 12px 12px 0px";
+      botMsg.style.maxWidth = "80%";
+      botMsg.style.wordWrap = "break-word";
+      botMsg.innerHTML = `${data.reply}`;
+      chatMessages.appendChild(botMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
 
     } catch (err) {
       typing.remove();
@@ -174,6 +174,7 @@ chatMessages.scrollTop = chatMessages.scrollHeight;
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
 
