@@ -5,25 +5,40 @@
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
   const button = document.createElement("div");
-  const botIcon = universityIcon || "🤖";
+ const button = document.createElement("div");
+const botIcon = universityIcon || "🤖";
+
+// Check if botIcon looks like a URL
+if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
+    const img = document.createElement("img");
+    img.src = botIcon;
+    img.style.width = "32px"; // adjust size
+    img.style.height = "32px";
+    img.style.borderRadius = "50%";
+    button.appendChild(img);
+} else {
+    // emoji or text
+    button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
+}
+
   button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
-Object.assign(button.style, {
-  position: "fixed",
-  bottom: "20px",
-  right: "20px",
-  width: "60px",
-  height: "60px",
-  borderRadius: "50%",
-  background: "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))",
-  color: "#fff",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  cursor: "pointer",
-  boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-  transition: "transform 0.2s, box-shadow 0.2s",
-  zIndex: 9999
-});
+  Object.assign(button.style, {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    background: "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))",
+    color: "#fff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    zIndex: 9999
+  });
 
   button.onmouseenter = () => {
     button.style.transform = "scale(1.1)";
@@ -42,7 +57,7 @@ Object.assign(button.style, {
     right: "20px",
     width: "360px",
     height: "500px",
-    background: "#ffffff",
+    background: "rgba(125,52,238,0.4)", // purple with opacity
     borderRadius: "16px",
     boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
     display: "none",
@@ -53,25 +68,22 @@ Object.assign(button.style, {
   });
 
   chatWindow.innerHTML = `
-   <div style="background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
-  <span>${universityName}</span>
-  <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
-</div>
-
+    <div style="background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+      <span>${universityName}</span>
+      <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
+    </div>
     <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
-      <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px 12px 12px 0px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
-        <b>Bot:</b> Hello! How can I help you today?
+      <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px 12px 12px 0px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">Hello! How can I help you today?
       </div>
     </div>
     <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
       <input id="chatInput" type="text" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none;font-size:14px;transition: border 0.2s;"/>
       <button id="sendChat" style="width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));
-  color:white;border:none;display:flex;justify-content:center;align-items:center;
-  cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
-  &#10148;
-</button>
-
+        background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));
+        color:white;border:none;display:flex;justify-content:center;align-items:center;
+        cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
+        &#10148;
+      </button>
     </div>
   `;
   document.body.appendChild(chatWindow);
@@ -93,7 +105,7 @@ Object.assign(button.style, {
     userMsg.style.alignSelf = "flex-end";
     userMsg.style.background = "#DCF8C6";
     userMsg.style.padding = "10px 14px";
-    userMsg.style.borderRadius = "12px 12px 0px 12px"; // bottom-right flat
+    userMsg.style.borderRadius = "12px 12px 0px 12px";
     userMsg.style.maxWidth = "80%";
     userMsg.style.wordWrap = "break-word";
     userMsg.innerHTML = `<b>You:</b> ${text}`;
@@ -103,9 +115,9 @@ Object.assign(button.style, {
     // Typing indicator
     const typing = document.createElement("div");
     typing.style.alignSelf = "flex-start";
-    typing.style.background = "#f1f1f1";
+    typing.style.background = "linear-gradient(to right, rgba(76,154,227,0.4), rgba(125,52,238,0.4))";
     typing.style.padding = "10px 14px";
-    typing.style.borderRadius = "12px 12px 12px 0px"; // bottom-left flat
+    typing.style.borderRadius = "12px 12px 12px 0px";
     typing.style.maxWidth = "80%";
     typing.style.wordWrap = "break-word";
     typing.style.fontStyle = "italic";
@@ -130,9 +142,9 @@ Object.assign(button.style, {
 
       const botMsg = document.createElement("div");
       botMsg.style.alignSelf = "flex-start";
-      botMsg.style.background = "#f1f1f1";
+      botMsg.style.background = "linear-gradient(to right, rgba(76,154,227,0.4), rgba(125,52,238,0.4))";
       botMsg.style.padding = "10px 14px";
-      botMsg.style.borderRadius = "12px 12px 12px 0px"; // bottom-left flat
+      botMsg.style.borderRadius = "12px 12px 12px 0px";
       botMsg.style.maxWidth = "80%";
       botMsg.style.wordWrap = "break-word";
       botMsg.innerHTML = `<b>Bot:</b> ${data.reply}`;
@@ -156,5 +168,3 @@ Object.assign(button.style, {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
-
-
