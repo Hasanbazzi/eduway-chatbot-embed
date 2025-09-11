@@ -55,7 +55,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     right: "20px",
     width: "360px",
     height: "500px",
-    background: "rgba(125,52,238,0.4)", // purple with opacity
+    background: "#ffffff",// purple with opacity
     borderRadius: "16px",
     boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
     display: "none",
@@ -166,5 +166,6 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
