@@ -7,23 +7,24 @@
   const button = document.createElement("div");
   const botIcon = universityIcon || "🤖";
   button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
-  Object.assign(button.style, {
-    position: "fixed",
-    bottom: "20px",
-    right: "20px",
-    width: "60px",
-    height: "60px",
-    borderRadius: "50%",
-    background: "#4a6cf7",
-    color: "#fff",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    cursor: "pointer",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-    transition: "transform 0.2s, box-shadow 0.2s",
-    zIndex: 9999
-  });
+Object.assign(button.style, {
+  position: "fixed",
+  bottom: "20px",
+  right: "20px",
+  width: "60px",
+  height: "60px",
+  borderRadius: "50%",
+  background: "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))",
+  color: "#fff",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  cursor: "pointer",
+  boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+  transition: "transform 0.2s, box-shadow 0.2s",
+  zIndex: 9999
+});
+
   button.onmouseenter = () => {
     button.style.transform = "scale(1.1)";
     button.style.boxShadow = "0 6px 18px rgba(0,0,0,0.35)";
@@ -52,10 +53,11 @@
   });
 
   chatWindow.innerHTML = `
-    <div style="background:#4a6cf7;color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
-      <span>${universityName}</span>
-      <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
-    </div>
+   <div style="background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+  <span>${universityName}</span>
+  <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
+</div>
+
     <div id="chatMessages" style="flex:1;padding:12px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;">
       <div style="align-self:flex-start;background:#f1f1f1;padding:10px 14px;border-radius:12px 12px 12px 0px;max-width:80%;word-wrap:break-word;transition: all 0.3s;">
         <b>Bot:</b> Hello! How can I help you today?
@@ -150,3 +152,4 @@
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
