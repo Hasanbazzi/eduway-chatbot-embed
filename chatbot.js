@@ -87,11 +87,11 @@
   const chatInput = chatWindow.querySelector("#chatInput");
   const sendChat = chatWindow.querySelector("#sendChat");
 
-  // Initial bot greeting
+  // Initial bot greeting (BLUE)
   const initialBotMsg = document.createElement("div");
   initialBotMsg.style.alignSelf = "flex-start";
-  initialBotMsg.style.background = "#A99FFF"; // bot color
-  initialBotMsg.style.color = "#fff"; // white text
+  initialBotMsg.style.background = "rgb(76,154,227)";
+  initialBotMsg.style.color = "#fff";
   initialBotMsg.style.padding = "10px 14px";
   initialBotMsg.style.borderRadius = "12px 12px 12px 0px";
   initialBotMsg.style.maxWidth = "80%";
@@ -107,10 +107,10 @@
   async function sendMessage(text) {
       if (!text) return;
 
-      // User message
+      // User message (PURPLE)
       const userMsg = document.createElement("div");
       userMsg.style.alignSelf = "flex-end";
-      userMsg.style.background = "#80C1FF"; // user color
+      userMsg.style.background = "rgb(132,98,241)";
       userMsg.style.color = "#fff";
       userMsg.style.padding = "10px 14px";
       userMsg.style.borderRadius = "12px 12px 0px 12px";
@@ -120,10 +120,10 @@
       chatMessages.appendChild(userMsg);
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
-      // Typing indicator
+      // Typing indicator (BLUE)
       const typing = document.createElement("div");
       typing.style.alignSelf = "flex-start";
-      typing.style.background = "#A99FFF";
+      typing.style.background = "rgb(76,154,227)";
       typing.style.color = "#fff";
       typing.style.padding = "10px 14px";
       typing.style.borderRadius = "12px 12px 12px 0px";
@@ -149,10 +149,10 @@
           const data = await res.json();
           typing.remove();
 
-          // Bot message
+          // Bot message (BLUE)
           const botMsg = document.createElement("div");
           botMsg.style.alignSelf = "flex-start";
-          botMsg.style.background = "#A99FFF";
+          botMsg.style.background = "rgb(76,154,227)";
           botMsg.style.color = "#fff";
           botMsg.style.padding = "10px 14px";
           botMsg.style.borderRadius = "12px 12px 12px 0px";
