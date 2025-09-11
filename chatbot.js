@@ -11,8 +11,9 @@ const botIcon = universityIcon || "🤖";
 if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     const img = document.createElement("img");
     img.src = botIcon;
-    img.style.width = "32px"; // adjust size
-    img.style.height = "32px";
+    img.style.width = "100%";       // fill the button horizontally
+    img.style.height = "100%";      // fill the button vertically
+    img.style.objectFit = "cover";  // crop if necessary, maintain aspect ratio
     img.style.borderRadius = "50%";
     button.appendChild(img);
 } else {
@@ -168,6 +169,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
 
