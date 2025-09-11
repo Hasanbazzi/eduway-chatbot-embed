@@ -101,31 +101,34 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
   async function sendMessage(text) {
     if (!text) return;
 
-    // User message
-    const userMsg = document.createElement("div");
-    userMsg.style.alignSelf = "flex-end";
-    userMsg.style.background = "#CBE3FF";
-    userMsg.style.padding = "10px 14px";
-    userMsg.style.borderRadius = "12px 12px 0px 12px";
-    userMsg.style.maxWidth = "80%";
-    userMsg.style.wordWrap = "break-word";
-    userMsg.innerHTML = `${text}`;
-    chatMessages.appendChild(userMsg);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+// User message
+const userMsg = document.createElement("div");
+userMsg.style.alignSelf = "flex-end";
+userMsg.style.background = "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))"; // same as button
+userMsg.style.color = "#fff";  // white text
+userMsg.style.padding = "10px 14px";
+userMsg.style.borderRadius = "12px 12px 0px 12px";
+userMsg.style.maxWidth = "80%";
+userMsg.style.wordWrap = "break-word";
+userMsg.innerHTML = `${text}`;
+chatMessages.appendChild(userMsg);
+chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    // Typing indicator
-    const typing = document.createElement("div");
-    typing.style.alignSelf = "flex-start";
-    typing.style.background = "#E9E4FE"
-    typing.style.padding = "10px 14px";
-    typing.style.borderRadius = "12px 12px 12px 0px";
-    typing.style.maxWidth = "80%";
-    typing.style.wordWrap = "break-word";
-    typing.style.fontStyle = "italic";
-    typing.style.opacity = "0.8";
-    typing.innerHTML = `typing...`;
-    chatMessages.appendChild(typing);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+// Typing indicator
+const typing = document.createElement("div");
+typing.style.alignSelf = "flex-start";
+typing.style.background = "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))"; // same as user/bot
+typing.style.color = "#fff";  // white text
+typing.style.padding = "10px 14px";
+typing.style.borderRadius = "12px 12px 12px 0px";
+typing.style.maxWidth = "80%";
+typing.style.wordWrap = "break-word";
+typing.style.fontStyle = "italic";
+typing.style.opacity = "1"; // fully opaque
+typing.innerHTML = `typing...`;
+chatMessages.appendChild(typing);
+chatMessages.scrollTop = chatMessages.scrollHeight;
+
 
     try {
       const res = await fetch("https://eduway-chatbot-backend-1.onrender.com/chat", {
@@ -140,17 +143,19 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
 
       const data = await res.json();
       typing.remove();
+// Bot message
+const botMsg = document.createElement("div");
+botMsg.style.alignSelf = "flex-start";
+botMsg.style.background = "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))"; // same as user
+botMsg.style.color = "#fff";  // white text
+botMsg.style.padding = "10px 14px";
+botMsg.style.borderRadius = "12px 12px 12px 0px";
+botMsg.style.maxWidth = "80%";
+botMsg.style.wordWrap = "break-word";
+botMsg.innerHTML = `${data.reply}`;
+chatMessages.appendChild(botMsg);
+chatMessages.scrollTop = chatMessages.scrollHeight;
 
-      const botMsg = document.createElement("div");
-      botMsg.style.alignSelf = "flex-start";
-      botMsg.style.background = "#E9E4FE"; 
-      botMsg.style.padding = "10px 14px";
-      botMsg.style.borderRadius = "12px 12px 12px 0px";
-      botMsg.style.maxWidth = "80%";
-      botMsg.style.wordWrap = "break-word";
-      botMsg.innerHTML = `${data.reply}`;
-      chatMessages.appendChild(botMsg);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
 
     } catch (err) {
       typing.remove();
@@ -169,6 +174,7 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
 
