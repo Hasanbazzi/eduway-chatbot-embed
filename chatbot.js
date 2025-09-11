@@ -4,8 +4,7 @@
   const universityIcon = scriptTag.getAttribute("data-university-icon") || "🤖";
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
-  const button = document.createElement("div");
- const button = document.createElement("div");
+const button = document.createElement("div");
 const botIcon = universityIcon || "🤖";
 
 // Check if botIcon looks like a URL
@@ -168,3 +167,4 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
