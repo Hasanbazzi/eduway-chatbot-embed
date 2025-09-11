@@ -114,7 +114,7 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           action: "sendMessage",
-          assistantId: "asst_VpJbKOMBkc4a5SO38BVzqCOE",
+          assistantId: assistantId,
           message: text
         })
       });
@@ -150,3 +150,4 @@
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
