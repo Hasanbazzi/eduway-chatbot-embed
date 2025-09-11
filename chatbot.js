@@ -65,9 +65,13 @@ Object.assign(button.style, {
     </div>
     <div style="padding:12px;border-top:1px solid #ddd;display:flex;gap:6px;">
       <input id="chatInput" type="text" placeholder="Type a message..." style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none;font-size:14px;transition: border 0.2s;"/>
-      <button id="sendChat" style="width:48px;height:48px;border-radius:50%;background:#4a6cf7;color:white;border:none;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
-        &#10148;
-      </button>
+      <button id="sendChat" style="width:48px;height:48px;border-radius:50%;
+  background:linear-gradient(to right, rgb(76,154,227), rgb(132,98,241));
+  color:white;border:none;display:flex;justify-content:center;align-items:center;
+  cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;">
+  &#10148;
+</button>
+
     </div>
   `;
   document.body.appendChild(chatWindow);
@@ -152,4 +156,5 @@ Object.assign(button.style, {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
