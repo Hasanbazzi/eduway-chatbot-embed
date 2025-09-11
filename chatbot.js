@@ -20,7 +20,6 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
 }
 
-  button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   Object.assign(button.style, {
     position: "fixed",
     bottom: "20px",
@@ -167,4 +166,5 @@ if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
