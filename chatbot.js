@@ -4,25 +4,24 @@
   const universityIcon = scriptTag.getAttribute("data-university-icon") || "🤖";
   const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
-  // 🎨 Colors from script (fallback to defaults)
+  // 🎨 Single primary color (no gradient)
   const primaryColor = scriptTag.getAttribute("data-primary-color") || "rgb(76,154,227)";
-  const secondaryColor = scriptTag.getAttribute("data-secondary-color") || "rgb(132,98,241)";
-  const userColor = scriptTag.getAttribute("data-user-color") || secondaryColor;
+  const userColor = scriptTag.getAttribute("data-user-color") || primaryColor;
   const botColor = scriptTag.getAttribute("data-bot-color") || primaryColor;
 
   const button = document.createElement("div");
   const botIcon = universityIcon || "🤖";
 
   if (botIcon.startsWith("http://") || botIcon.startsWith("https://")) {
-      const img = document.createElement("img");
-      img.src = botIcon;
-      img.style.width = "100%";
-      img.style.height = "100%";
-      img.style.objectFit = "cover";
-      img.style.borderRadius = "50%";
-      button.appendChild(img);
+    const img = document.createElement("img");
+    img.src = botIcon;
+    img.style.width = "100%";
+    img.style.height = "100%";
+    img.style.objectFit = "cover";
+    img.style.borderRadius = "50%";
+    button.appendChild(img);
   } else {
-      button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
+    button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   }
 
   Object.assign(button.style, {
@@ -71,7 +70,8 @@
   });
 
   chatWindow.innerHTML = `
-    <div style="background:linear-gradient(to right, ${primaryColor}, ${secondaryColor});color:white;padding:14px 16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
+    <div style="background:${primaryColor};color:white;padding:14px 16px;
+        font-weight:bold;display:flex;justify-content:space-between;align-items:center;">
       <span>${universityName}</span>
       <span id="closeChat" style="cursor:pointer;font-weight:bold;font-size:18px;">✖</span>
     </div>
@@ -81,7 +81,7 @@
         style="flex:1;padding:10px;border-radius:20px;border:1px solid #ccc;outline:none;font-size:14px;transition: border 0.2s;"/>
       <button id="sendChat" style="
         width:48px;height:48px;border-radius:50%;
-        background:linear-gradient(to right, ${primaryColor}, ${secondaryColor});
+        background:${primaryColor};
         color:white;border:none;display:flex;justify-content:center;align-items:center;
         cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;
         font-size:17px;line-height:1;padding:0;">
@@ -187,4 +187,3 @@
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
-
