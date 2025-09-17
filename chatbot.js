@@ -84,7 +84,7 @@
         background:linear-gradient(to right, ${primaryColor}, ${secondaryColor});
         color:white;border:none;display:flex;justify-content:center;align-items:center;
         cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);transition: transform 0.2s;
-        font-size:24px;line-height:1;padding:0;">
+        font-size:17px;line-height:1;padding:0;">
         &#10148;
       </button>
     </div>
@@ -187,3 +187,4 @@
     if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
