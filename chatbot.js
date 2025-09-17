@@ -19,23 +19,23 @@
       button.innerHTML = `<span style="font-size:28px;">${botIcon}</span>`;
   }
 
-  Object.assign(button.style, {
-      position: "fixed",
-      bottom: "20px",
-      right: "20px",
-      width: "60px",
-      height: "60px",
-      borderRadius: "50%",
-      background: "linear-gradient(to right, rgb(76,154,227), rgb(132,98,241))",
-      color: "#fff",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      cursor: "pointer",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
-      transition: "transform 0.2s, box-shadow 0.2s",
-      zIndex: 9999
-  });
+Object.assign(button.style, {
+    position: "fixed",
+    bottom: "20px",
+    right: "20px",
+    width: "60px",
+    height: "60px",
+    borderRadius: "50%",
+    background: "none",  // removed gradient
+    color: "#000",        // optional, only matters if using emoji/text
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
+    transition: "transform 0.2s, box-shadow 0.2s",
+    zIndex: 9999
+});
 
   button.onmouseenter = () => {
       button.style.transform = "scale(1.1)";
@@ -179,3 +179,4 @@
       if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
