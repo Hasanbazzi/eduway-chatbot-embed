@@ -85,7 +85,7 @@ Object.assign(button.style, {
   cursor:pointer;
   box-shadow:0 2px 6px rgba(0,0,0,0.2);
   transition: transform 0.2s;
-  font-size:20px;      /* make arrow larger */
+  font-size:30px;      /* make arrow larger */
   line-height:1;       /* remove extra spacing */
   padding:0;           /* remove default padding */
 ">
@@ -193,5 +193,6 @@ Object.assign(button.style, {
       if (e.key === "Enter") sendChat.onclick();
   });
 })();
+
 
 
