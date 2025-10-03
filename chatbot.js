@@ -4,15 +4,13 @@
     const universityIcon = scriptTag.getAttribute("data-university-icon") || "🤖";
     const assistantId = scriptTag.getAttribute("data-assistant-id") || "test-assistant";
 
-    // 🎨 Single primary color (no gradient)
     const primaryColor = scriptTag.getAttribute("data-primary-color") || "rgb(76,154,227)";
     const userColor = scriptTag.getAttribute("data-user-color") || primaryColor;
     const botColor = scriptTag.getAttribute("data-bot-color") || primaryColor;
 
-    let isWaitingForResponse = false; // State to track if we are waiting for a reply
-    let threadId = null; // Store threadId in memory for the session
+    let isWaitingForResponse = false;
+    let threadId = null;
 
-    // Inject CSS for animations and styling
     const style = document.createElement('style');
     style.innerHTML = `
         .typing-indicator {
@@ -21,13 +19,18 @@
             padding: 10px 14px !important;
         }
         .typing-indicator span {
-            height: 8px;
-            width: 8px;
+            /* Dots are now smaller */
+            height: 6px;
+            width: 6px;
             margin: 0 2px;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             display: inline-block;
             animation: bounce 1.4s infinite ease-in-out both;
+        }
+        /* Re-add margin for spacing between "Typing" and dots */
+        .typing-indicator span:first-of-type {
+            margin-left: 6px;
         }
         .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
         .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
@@ -119,12 +122,10 @@
     const chatInput = chatWindow.querySelector("#chatInput");
     const sendChat = chatWindow.querySelector("#sendChat");
 
-    // Helper to scroll to bottom
     const scrollToBottom = () => {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     };
 
-    // Initial bot greeting
     const initialBotMsg = document.createElement("div");
     initialBotMsg.style.alignSelf = "flex-start";
     initialBotMsg.style.background = botColor;
@@ -144,9 +145,9 @@
     };
     chatWindow.querySelector("#closeChat").onclick = () => chatWindow.style.display = "none";
 
-    const setInputDisabled = (disabled) => {
+    const setSendButtonDisabled = (disabled) => {
         isWaitingForResponse = disabled;
-        chatInput.disabled = disabled;
+        // Only disable the send button, not the input field
         sendChat.disabled = disabled;
         sendChat.style.opacity = disabled ? "0.6" : "1";
         sendChat.style.cursor = disabled ? "not-allowed" : "pointer";
@@ -155,9 +156,8 @@
     async function sendMessage(text) {
         if (!text || isWaitingForResponse) return;
 
-        setInputDisabled(true);
+        setSendButtonDisabled(true);
 
-        // User message
         const userMsg = document.createElement("div");
         userMsg.style.alignSelf = "flex-end";
         userMsg.style.background = userColor;
@@ -170,15 +170,15 @@
         chatMessages.appendChild(userMsg);
         scrollToBottom();
 
-        // Animated Typing indicator
         const typing = document.createElement("div");
         typing.style.alignSelf = "flex-start";
         typing.style.background = botColor;
         typing.style.color = "#fff";
         typing.style.borderRadius = "12px 12px 12px 0px";
         typing.style.maxWidth = "fit-content";
-        typing.classList.add('typing-indicator'); // Use class for animation
-        typing.innerHTML = `<span></span><span></span><span></span>`;
+        typing.classList.add('typing-indicator');
+        // Restore "Typing" text
+        typing.innerHTML = `Typing <span></span><span></span><span></span>`;
         chatMessages.appendChild(typing);
         scrollToBottom();
 
@@ -189,18 +189,17 @@
                 body: JSON.stringify({
                     action: "sendMessage",
                     assistantId: assistantId,
-                    threadId: threadId, // Send threadId if it exists
+                    threadId: threadId,
                     message: text
                 })
             });
             
             if (!res.ok) {
-                // Throw an error if response is not ok to be caught by the catch block
                 throw new Error(`Server responded with status: ${res.status}`);
             }
 
             const data = await res.json();
-            threadId = data.threadId; // Save the threadId from the response
+            threadId = data.threadId;
 
             typing.remove();
 
@@ -220,10 +219,9 @@
             typing.remove();
             console.error("Chatbot Error:", err);
             
-            // Display an error message to the user in the chat
             const errorMsg = document.createElement("div");
             errorMsg.style.alignSelf = "flex-start";
-            errorMsg.style.background = "#D32F2F"; // A distinct error color
+            errorMsg.style.background = "#D32F2F";
             errorMsg.style.color = "#fff";
             errorMsg.style.padding = "10px 14px";
             errorMsg.style.borderRadius = "12px 12px 12px 0px";
@@ -234,15 +232,14 @@
             scrollToBottom();
 
         } finally {
-            // Re-enable input regardless of success or failure
-            setInputDisabled(false);
+            setSendButtonDisabled(false);
             chatInput.focus();
         }
     }
 
     const handleSend = () => {
         const text = chatInput.value.trim();
-        if (!text) return;
+        if (!text || isWaitingForResponse) return;
         chatInput.value = "";
         sendMessage(text);
     };
