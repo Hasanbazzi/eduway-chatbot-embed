@@ -15,7 +15,7 @@
     style.innerHTML = `
         .typing-indicator {
             display: flex;
-            align-items: center;
+            align-items: baseline;
             padding: 10px 14px !important;
         }
         .typing-indicator span {
@@ -252,3 +252,4 @@
         }
     });
 })();
+
