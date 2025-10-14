@@ -183,8 +183,7 @@
         scrollToBottom();
 
         try {
-      const backendUrl = scriptTag.getAttribute("data-backend-url") || "http://localhost:3000";
-const res = await fetch(`${backendUrl}/chat`, {
+    const res = await fetch("https://eduway-chatbot-backend-1.onrender.com/chat", {
 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -254,4 +253,5 @@ const res = await fetch(`${backendUrl}/chat`, {
         }
     });
 })();
+
 
