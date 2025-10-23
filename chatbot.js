@@ -183,7 +183,7 @@
         scrollToBottom();
 
         try {
-    const res = await fetch("https://eduway-chatbot-backend.onrender.com/chat", {
+    const res = await fetch("http://localhost:3000/chat", {
 
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -253,6 +253,7 @@
         }
     });
 })();
+
 
 
 
