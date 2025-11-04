@@ -66,7 +66,6 @@
     document.head.appendChild(style);
 
     // --- Chat Bubble (Launcher Button) ---
-    // (Kept the original bubble as the new design only showed the window)
     const button = document.createElement("div");
     const botIcon = universityIcon || "🤖";
 
@@ -79,7 +78,7 @@
         img.style.borderRadius = "50%";
         button.appendChild(img);
     } else {
-        // Use a default icon if not a URL, as emoji might not fit new design
+        // Use a default icon if not a URL
          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.77 2.9CF.079 16.01 0 16.01 0 16.01s.99.104 1.907-.837C2.932 14.5 4.178 15 5.283 15h2.717zM5 8h1.5v1.5H5V8zm2.5 0h1.5v1.5H7.5V8zm2.5 0h1.5v1.5H10V8z"/></svg>`;
     }
 
@@ -90,7 +89,7 @@
         width: "60px",
         height: "60px",
         borderRadius: "50%",
-        background: "#fff", // Kept original bubble color
+        background: "#fff",
         color: "#000",
         display: "flex",
         justifyContent: "center",
@@ -120,7 +119,6 @@
         width: "360px",
         height: "500px",
         background: "#ffffff",
-        // New styles from Flutter design
         borderRadius: "16px",
         boxShadow: `0 5px 34px ${shadowColor}`,
         display: "none",
@@ -158,8 +156,16 @@
         }
         return avatarContainer;
     }
+// --- New Chat Window HTML Structure ---
+    
+    // --- Define Close Icon SVG ---
+    const closeIconSvg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M1 1L13 13" stroke="${closeIconColor}" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M13 1L1 13" stroke="${closeIconColor}" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+    `;
 
-    // --- New Chat Window HTML Structure ---
     chatWindow.innerHTML = `
         <div style="padding:16px; background: #fff; display:flex; flex-direction:column; gap: 4px;">
             <div style="display:flex; align-items:center; gap: 12px;">
@@ -167,8 +173,11 @@
                 <span style="font-weight:bold; color:${headerTextColor}; font-size:16px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                     ${universityName}
                 </span>
-                <span id="closeChat" style="cursor:pointer; font-size:26px; color:${closeIconColor}; font-weight:bold; line-height:1;">&times;</span>
-            </div>
+
+                <span id="closeChat" style="cursor:pointer; display:flex; align-items:center; justify-content:center; width:24px; height:24px;">
+                    ${closeIconSvg}
+                </span>
+                </div>
             <div style="height:1px; background:${dividerColor}; margin-top: 12px;"></div>
         </div>
         
@@ -180,10 +189,11 @@
             <div style="display:flex; align-items:center; gap:8px;">
                 <input id="chatInput" type="text" placeholder="Write your message..." style="flex:1; height:48px; padding:10px 16px; border-radius:12px; border: 1.5px solid ${inputBorderColor}; outline:none; font-size:14px; font-family: 'Poppins', sans-serif; box-sizing: border-box; transition: all 0.2s;" />
                 <button id="sendChat" style="width:36px; height:36px; min-width:36px; border-radius:50%; background:${primaryColor}; color:white; border:none; display:flex; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.2); transition: all 0.2s;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" style="margin-left: -1px;">
-                        <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="transform: rotate(-40deg); margin-left: 1px; margin-top: -1px;">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2v7z"/>
                     </svg>
-                </button>
+                    </button>
             </div>
         </div>
     `;
