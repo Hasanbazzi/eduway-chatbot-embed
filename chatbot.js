@@ -262,7 +262,7 @@
             alignItems: "flex-end",
             gap: "9px",
             alignSelf: "flex-start",
-            fontSize: "13px",
+            fontSize: "14px",
             fontFamily: "Poppins"
         });
 
@@ -277,7 +277,7 @@
             maxWidth: "80%",
             wordWrap: "break-word",
             fontFamily: "Poppins",
-            fontSize: "12px"
+            fontSize: "14px"
         });
         
         botMsg.innerHTML = htmlContent;
@@ -331,7 +331,7 @@
             maxWidth: "80%",
             wordWrap: "break-word",
             fontFamily: "'Poppins', sans-serif",
-            fontSize: "13px"
+            fontSize: "14px"
         });
         userMsg.innerHTML = `${text}`; // Use innerHTML to render line breaks if any
         chatMessages.appendChild(userMsg);
@@ -393,6 +393,7 @@
         }
     });
 })();
+
 
 
 
