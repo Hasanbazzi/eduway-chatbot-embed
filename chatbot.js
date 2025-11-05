@@ -170,9 +170,10 @@
         <div style="padding:16px; background: #fff; display:flex; flex-direction:column; gap: 4px;">
             <div style="display:flex; align-items:center; gap: 12px;">
                 ${createHeaderAvatar().outerHTML}
-                <span style="font-weight:bold; color:${headerTextColor}; font-size:16px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
-                    ${universityName}
-                </span>
+                       <span style="font-weight:600; color:${headerTextColor}; font-size:16px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                         ${universityName}
+                        </span>
+
 
                 <span id="closeChat" style="cursor:pointer; display:flex; align-items:center; justify-content:center; width:24px; height:24px;">
                     ${closeIconSvg}
@@ -390,4 +391,5 @@
         }
     });
 })();
+
 
