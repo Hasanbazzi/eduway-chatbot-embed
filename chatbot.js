@@ -170,7 +170,7 @@
         <div style="padding:16px; background: #fff; display:flex; flex-direction:column; gap: 4px;">
             <div style="display:flex; align-items:center; gap: 12px;">
                 ${createHeaderAvatar().outerHTML}
-                       <span style="font-weight:600; color:${headerTextColor}; font-size:16px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                       <span style="font-weight:500; color:${headerTextColor}; font-size:16px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                          ${universityName}
                         </span>
 
@@ -391,5 +391,6 @@
         }
     });
 })();
+
 
 
