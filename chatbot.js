@@ -262,7 +262,7 @@
             alignItems: "flex-end",
             gap: "9px",
             alignSelf: "flex-start",
-            fontSize: "12px",
+            fontSize: "13px",
             fontFamily: "Poppins"
         });
 
@@ -326,12 +326,12 @@
             alignSelf: "flex-end",
             background: userColor,
             color: "#000", // Black text on light bg
-            padding: "12px 14px", // (vertical: 12, horizontal: 14)
-            borderRadius: "12px 12px 0px 12px", // (12, 12, 0, 12)
+            padding: "15px 14px", // match bot bubble padding
+            borderRadius: "12px 12px 0px 12px",
             maxWidth: "80%",
             wordWrap: "break-word",
             fontFamily: "'Poppins', sans-serif",
-            fontSize: "14px"
+            fontSize: "13px"
         });
         userMsg.innerHTML = `${text}`; // Use innerHTML to render line breaks if any
         chatMessages.appendChild(userMsg);
@@ -393,6 +393,7 @@
         }
     });
 })();
+
 
 
 
