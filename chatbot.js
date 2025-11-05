@@ -188,7 +188,7 @@
         <div style="padding: 0 16px 16px 16px; background: #fff;">
             <div style="height:1px; background:${dividerColor}; margin-bottom: 16px;"></div>
             <div style="display:flex; align-items:center; gap:8px;">
-                <input id="chatInput" type="text" placeholder="Write your message..." style="flex:1; height:48px; padding:10px 16px; border-radius:12px; border: 1.5px solid ${inputBorderColor}; outline:none; font-size:14px; font-family: 'Poppins', sans-serif; box-sizing: border-box; transition: all 0.2s;" />
+                <input id="chatInput" type="text" placeholder="Write your message..." style="flex:1; height:48px; padding:10px 16px; border-radius:12px; border: 1.5px solid ${inputBorderColor}; outline:none; font-size:14px; font-family: 'Poppins'; box-sizing: border-box; transition: all 0.2s;" />
                     <button id="sendChat" style="
             width:36px; 
             height:36px; 
@@ -261,7 +261,9 @@
             display: "flex",
             alignItems: "flex-end",
             gap: "9px",
-            alignSelf: "flex-start"
+            alignSelf: "flex-start",
+            fontSize: "12px",
+            fontFamily: "Poppins"
         });
 
         msgWrapper.appendChild(createBotAvatar());
@@ -274,8 +276,8 @@
             borderRadius: "12px 12px 12px 0px", // (12, 12, 12, 0)
             maxWidth: "80%",
             wordWrap: "break-word",
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "14px"
+            fontFamily: "Poppins",
+            fontSize: "12px"
         });
         
         botMsg.innerHTML = htmlContent;
@@ -391,6 +393,7 @@
         }
     });
 })();
+
 
 
 
