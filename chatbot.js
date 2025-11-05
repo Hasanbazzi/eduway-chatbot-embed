@@ -188,12 +188,25 @@
             <div style="height:1px; background:${dividerColor}; margin-bottom: 16px;"></div>
             <div style="display:flex; align-items:center; gap:8px;">
                 <input id="chatInput" type="text" placeholder="Write your message..." style="flex:1; height:48px; padding:10px 16px; border-radius:12px; border: 1.5px solid ${inputBorderColor}; outline:none; font-size:14px; font-family: 'Poppins', sans-serif; box-sizing: border-box; transition: all 0.2s;" />
-                <button id="sendChat" style="width:36px; height:36px; min-width:36px; border-radius:50%; background:${primaryColor}; color:white; border:none; display:flex; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.2); transition: all 0.2s;">
-                    
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="transform: rotate(-40deg); margin-left: 1px; margin-top: -1px;">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2v7z"/>
-                    </svg>
-                    </button>
+                    <button id="sendChat" style="
+            width:36px; 
+            height:36px; 
+            min-width:36px; 
+            border-radius:50%; 
+            background:${primaryColor}; 
+            color:white; 
+            border:none; 
+            display:flex; 
+            justify-content:center; 
+            align-items:center; 
+            cursor:pointer; 
+            transition: all 0.2s;
+        ">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2v7z"/>
+            </svg>
+        </button>
+
             </div>
         </div>
     `;
@@ -377,3 +390,4 @@
         }
     });
 })();
+
